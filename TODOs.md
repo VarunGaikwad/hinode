@@ -23,10 +23,10 @@
 
 ## Extension (Hinode Extension)
 
-- [x] Set up Chrome extension scaffold with Vite, React, and TypeScript
-- [x] Create `manifest.json` with newtab override and required permissions
-- [x] Implement `public/newtab.html` and root React component `App.tsx`
-- [x] Implement Greeting component (time‑based greeting)
+- [ ] Set up Chrome extension scaffold with Vite, React, and TypeScript
+- [ ] Create `manifest.json` with newtab override and required permissions
+- [ ] Implement `public/newtab.html` and root React component `App.tsx`
+- [ ] Implement Greeting component (time‑based greeting)
 - [ ] Implement Clock component (current time and date)
 - [ ] Implement WeatherCard component (fetch/display weather via /api/home)
 - [ ] Implement ShayariCard component (display random shayari)
