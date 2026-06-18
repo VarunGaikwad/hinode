@@ -10,7 +10,10 @@ import { apiRateLimiter } from "./middleware/rateLimit";
 import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
-app.set('trust proxy', true); // Enable trust proxy for correct X-Forwarded-For handling
+
+if (process.env.NODE_ENV !== 'test') {
+  app.set('trust proxy', true); // Enable trust proxy for correct X-Forwarded-For handling
+}
 
 app.use(express.json());
 app.use("/health", healthRouter);
@@ -23,16 +26,21 @@ app.use("/api/home", homeRouter);
 // Error handling middleware (should be after routes)
 app.use(errorHandler);
 
-const PORT = config.PORT;
+// Export the app for testing purposes
+export default app;
 
-(async () => {
-  try {
-    await runMigrations();
-    app.listen(PORT, () => {
-      console.log(`Hinode server listening on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error('Failed to start server due to migration error:', err);
-    process.exit(1);
-  }
-})();
+// Start the server only when this module is executed directly
+if (require.main === module) {
+  const PORT = config.PORT;
+  (async () => {
+    try {
+      await runMigrations();
+      app.listen(PORT, () => {
+        console.log(`Hinode server listening on port ${PORT}`);
+      });
+    } catch (err) {
+      console.error('Failed to start server due to migration error:', err);
+      process.exit(1);
+    }
+  })();
+}
