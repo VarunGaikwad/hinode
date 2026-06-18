@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Hinode",
+  "description": "A peaceful start to every tab.",
+  "version": "0.1.0",
+  "chrome_url_overrides": {
+    "newtab": "public/newtab.html"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "icons": {
+    "16": "public/icons/icon-16.png",
+    "48": "public/icons/icon-48.png",
+    "128": "public/icons/icon-128.png"
+  }
+}

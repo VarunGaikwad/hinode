@@ -1,0 +1,38 @@
+import express from "express";
+import healthRouter from "./routes/health.routes";
+import shayariRouter from "./routes/shayari.routes";
+import weatherRouter from "./routes/weather.routes";
+import backgroundRouter from "./routes/background.routes";
+import homeRouter from "./routes/home.routes";
+import { config } from "./env";
+import { runMigrations } from "./db/db";
+import { apiRateLimiter } from "./middleware/rateLimit";
+import { errorHandler } from "./middleware/errorHandler";
+
+const app = express();
+app.set('trust proxy', true); // Enable trust proxy for correct X-Forwarded-For handling
+
+app.use(express.json());
+app.use("/health", healthRouter);
+app.use(apiRateLimiter);
+app.use("/api/shayari", shayariRouter);
+app.use("/api/weather", weatherRouter);
+app.use("/api/background", backgroundRouter);
+app.use("/api/home", homeRouter);
+
+// Error handling middleware (should be after routes)
+app.use(errorHandler);
+
+const PORT = config.PORT;
+
+(async () => {
+  try {
+    await runMigrations();
+    app.listen(PORT, () => {
+      console.log(`Hinode server listening on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('Failed to start server due to migration error:', err);
+    process.exit(1);
+  }
+})();
