@@ -1,0 +1,18 @@
+
+> hinode-extension@0.1.0 dev
+> vite
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+Port 5173 is in use, trying another one...
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m1405[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5174[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.56.1:[1m5174[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://100.64.1.39:[1m5174[22m/[39m
+[2m6:21:57 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/services/storageService.ts[22m
+[2m6:21:57 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/services/storageService.ts[22m
+[2m6:22:15 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/app/App.tsx, /src/styles/index.css[22m
+[2m6:22:24 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/services/apiClient.ts[22m
+[2m6:26:40 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/app/App.tsx[22m
+[2m6:26:40 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/app/App.tsx[22m

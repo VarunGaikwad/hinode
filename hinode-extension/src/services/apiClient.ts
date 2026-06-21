@@ -20,16 +20,22 @@ async function getServerBaseUrl(): Promise<string> {
 }
 
 async function getJson<T>(url: string): Promise<T> {
-  const response = await fetch(url, {
-    headers: { Accept: 'application/json' },
-  });
+  try {
+    const response = await fetch(url, {
+      headers: { Accept: 'application/json' },
+    });
 
-  if (!response.ok) {
-    const body = await response.json().catch(() => ({ error: 'Unknown error' }));
-    throw new Error(body.error || `HTTP ${response.status}`);
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({ error: 'Unknown error' }));
+      throw new Error(body.error || `HTTP ${response.status}`);
+    }
+
+    return response.json() as Promise<T>;
+  } catch (err) {
+    // Surface network/CORS errors in the extension console for easier debugging.
+    console.error(`[apiClient] GET ${url} failed:`, err);
+    throw err;
   }
-
-  return response.json() as Promise<T>;
 }
 
 function buildQueryString(params: Record<string, string | number | undefined>): string {

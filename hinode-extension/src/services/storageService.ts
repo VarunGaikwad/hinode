@@ -66,7 +66,9 @@ function setStorage<T>(key: string, value: T): Promise<void> {
 
 export async function loadSettings(): Promise<ExtensionSettings> {
   const stored = await getStorage<ExtensionSettings>(SETTINGS_KEY);
-  return stored ? { ...DEFAULT_SETTINGS, ...stored } : DEFAULT_SETTINGS;
+  // Always return a new object so React detects the settings load event even
+  // when no persisted settings exist (e.g. running in a plain browser tab).
+  return { ...DEFAULT_SETTINGS, ...(stored ?? {}) };
 }
 
 export async function saveSettings(settings: ExtensionSettings): Promise<void> {

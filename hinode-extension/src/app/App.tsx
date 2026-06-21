@@ -69,6 +69,7 @@ export default function App() {
     (async () => {
       const [loadedSettings, loadedItems] = await Promise.all([loadSettings(), loadItems()]);
       if (cancelled) return;
+      console.log('[Hinode] settings loaded', loadedSettings === DEFAULT_SETTINGS, loadedSettings);
       setSettings(loadedSettings);
       setItems(loadedItems);
       applyThemeClass(loadedSettings.theme);
@@ -86,10 +87,16 @@ export default function App() {
     const loadHome = async () => {
       setLoading(true);
       setError(null);
+      console.log('[Hinode] loadHome effect running. settings === DEFAULT_SETTINGS?', settings === DEFAULT_SETTINGS);
 
       try {
         const cached = await loadHomeCache();
-        if (cached && isCacheFresh(cached)) {
+        const hasUsableBackground = !!cached?.background?.image_url;
+
+        // While offline, show whatever cache we have. While online, only use a
+        // cache entry that actually includes a background image; otherwise fetch
+        // fresh data so a previous failed/empty payload is not stuck for 10 min.
+        if (cached && isCacheFresh(cached) && (navigator.onLine ? hasUsableBackground : true)) {
           setHome(cached);
           setLoading(false);
           return;
@@ -102,14 +109,18 @@ export default function App() {
         }
 
         const params = buildHomeParams(settings);
+        console.log('[Hinode] fetching home with params', params);
         const payload = await fetchHome(params);
+        console.log('[Hinode] fetchHome returned', payload);
         if (cancelled) return;
         setHome(payload);
+        (window as any).__HINODE_HOME__ = payload;
         await saveHomeCache(payload);
       } catch (err) {
+        console.error('[Hinode] fetchHome error', err);
         if (cancelled) return;
         const cached = await loadHomeCache();
-        if (cached) {
+        if (cached?.background?.image_url) {
           setHome(cached);
         } else {
           setError(err instanceof Error ? err.message : 'Failed to load home data');
