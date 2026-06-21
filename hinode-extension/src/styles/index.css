@@ -163,6 +163,29 @@
   .animate-scale-in {
     animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-hinode-accent focus:ring-offset-2 focus:ring-offset-transparent;
+  }
+
+  .animate-in-1 { animation-delay: 100ms; }
+  .animate-in-2 { animation-delay: 200ms; }
+  .animate-in-3 { animation-delay: 300ms; }
+  .animate-in-4 { animation-delay: 400ms; }
+  .animate-in-5 { animation-delay: 500ms; }
+  .animate-in-6 { animation-delay: 600ms; }
+  .animate-in-7 { animation-delay: 700ms; }
+  .animate-in-8 { animation-delay: 800ms; }
+  .animate-in-9 { animation-delay: 900ms; }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 @keyframes fadeInUp {
@@ -193,6 +216,40 @@
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/* Background layer used by Background.tsx */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bg-layer.visible {
+  opacity: 1;
+}
+
+.bg-layer.hidden {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bg-layer.ken-burns {
+    animation: kenBurns 30s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.03);
   }
 }
 

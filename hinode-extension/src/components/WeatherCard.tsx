@@ -37,19 +37,19 @@ export default function WeatherCard({ weather, unit = 'metric' }: WeatherCardPro
 
   return (
     <div
-      className="glass-card p-5 flex items-center gap-4 min-w-[220px] animate-in-5"
+      className="glass-card p-4 flex items-center gap-3 min-w-[220px] opacity-0 animate-fade-in-up animate-in-5"
       role="region"
       aria-label={`Weather in ${weather.cityName}: ${weather.temperature}${unitLabel}, ${weather.condition}`}
     >
       {getWeatherIcon(weather.condition, weather.icon)}
-      <div className="flex flex-col">
-        <span className="text-3xl font-light text-hinode-text-primary">
+      <div className="flex flex-col min-w-0">
+        <span className="text-2xl font-light text-hinode-text-primary">
           {Math.round(weather.temperature)}{unitLabel}
         </span>
-        <span className="text-base font-medium text-hinode-text-secondary">
+        <span className="text-sm font-medium text-hinode-text-secondary truncate">
           {weather.cityName} · {weather.condition}
         </span>
-        <span className="text-sm text-hinode-text-tertiary">
+        <span className="text-xs text-hinode-text-tertiary whitespace-nowrap">
           H:{weather.humidity}% · W:{displayWind} {speedUnit}
         </span>
       </div>

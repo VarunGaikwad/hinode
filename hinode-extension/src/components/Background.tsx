@@ -64,16 +64,14 @@ export default function BackgroundLayer({
     <div className="fixed inset-0 z-0 overflow-hidden bg-[#0f0f11]">
       {/* Background layers */}
       <div
-        className={`bg-layer ${isTransitioning ? 'visible' : 'visible'} ${
-          !prefersReducedMotion ? 'ken-burns' : ''
-        }`}
-        style={{ backgroundImage: `url(${currentImage})` }}
+        className={`bg-layer visible ${!prefersReducedMotion ? 'ken-burns' : ''}`}
+        style={{ backgroundImage: currentImage ? `url('${currentImage}')` : 'none' }}
         aria-hidden="true"
       />
       {nextImage && (
         <div
           className={`bg-layer ${isTransitioning ? 'visible' : 'hidden'}`}
-          style={{ backgroundImage: `url(${nextImage})` }}
+          style={{ backgroundImage: `url('${nextImage}')` }}
           aria-hidden="true"
         />
       )}
@@ -96,7 +94,7 @@ export default function BackgroundLayer({
       />
 
       {/* Content */}
-      <div className="relative z-30 h-full overflow-auto">{children}</div>
+      <div className="relative z-30 h-full overflow-hidden flex flex-col">{children}</div>
 
       {/* Attribution */}
       {attribution && (

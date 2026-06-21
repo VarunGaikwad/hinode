@@ -15,6 +15,17 @@ if (process.env.NODE_ENV !== 'test') {
   app.set('trust proxy', true); // Enable trust proxy for correct X-Forwarded-For handling
 }
 
+// Allow cross-origin requests from the extension (and local Vite dev server).
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 app.use(express.json());
 app.use("/health", healthRouter);
 app.use(apiRateLimiter);

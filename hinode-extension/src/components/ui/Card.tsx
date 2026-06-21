@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface CardProps {
+interface CardProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: string;
   hover?: boolean;
@@ -12,12 +12,13 @@ export default function Card({
   className = '',
   hover = true,
   as = 'div',
+  ...rest
 }: CardProps) {
-  const classes = `glass-card ${hover ? 'glass-card-hover cursor-pointer' : ''} ${className}`;
+  const classes = `glass-card text-left ${hover ? 'glass-card-hover cursor-pointer' : ''} ${className}`;
 
   if (as === 'button') {
     return (
-      <button type="button" className={classes}>
+      <button type="button" className={classes} {...rest}>
         {children}
       </button>
     );

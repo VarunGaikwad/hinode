@@ -60,8 +60,14 @@ db.get<BackgroundCacheRow>(
     const response = await axios.get(endpoint);
     const data = response.data;
     // Build Background object
+    // Use a resized Unsplash image so backgrounds load quickly but still look crisp.
+    const rawUrl: string | undefined = data.urls?.raw;
+    const image_url = rawUrl
+      ? `${rawUrl}&w=1920&fit=max&q=80`
+      : data.urls?.regular ?? data.urls?.full ?? "";
+
     const background: Background = {
-      image_url: data.urls?.full ?? data.urls?.regular ?? "",
+      image_url,
       photographer_name: data.user?.name,
       photographer_url: data.user?.links?.html,
       photo_url: data.links?.html,
@@ -111,8 +117,14 @@ db.get<BackgroundCacheRow>(
     );
 
     return background;
-  } catch (e) {
-    console.error("Error fetching background from Unsplash:", e);
+  } catch (e: any) {
+    const status = e?.response?.status;
+    const body = e?.response?.data;
+    console.error(
+      "Error fetching background from Unsplash:",
+      status ? `HTTP ${status}` : e.message,
+      body ? JSON.stringify(body) : ""
+    );
     return null;
   }
 }

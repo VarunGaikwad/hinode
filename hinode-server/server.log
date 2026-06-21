@@ -1,0 +1,19 @@
+
+> hinode-server@0.1.0 dev
+> ts-node-dev src/index.ts
+
+[INFO] 09:25:18 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.2, typescript ver. 5.9.3)
+SQLite database opened at C:\Projects\hinode\hinode-server\data\hinode.db
+Database migrations executed successfully.
+Hinode server listening on port 7000
+ValidationError: The Express 'trust proxy' setting is true, which allows anyone to trivially bypass IP-based rate limiting. See https://express-rate-limit.github.io/ERR_ERL_PERMISSIVE_TRUST_PROXY/ for more information.
+    at _Validations.<anonymous> (C:\Projects\hinode\hinode-server\node_modules\express-rate-limit\dist\index.cjs:160:15)
+    at _Validations.wrap (C:\Projects\hinode\hinode-server\node_modules\express-rate-limit\dist\index.cjs:313:18)
+    at _Validations.trustProxy (C:\Projects\hinode\hinode-server\node_modules\express-rate-limit\dist\index.cjs:158:10)
+    at Object.keyGenerator (C:\Projects\hinode\hinode-server\node_modules\express-rate-limit\dist\index.cjs:541:19)
+    at C:\Projects\hinode\hinode-server\node_modules\express-rate-limit\dist\index.cjs:595:32
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at C:\Projects\hinode\hinode-server\node_modules\express-rate-limit\dist\index.cjs:576:5 {
+  code: 'ERR_ERL_PERMISSIVE_TRUST_PROXY',
+  help: 'https://express-rate-limit.github.io/ERR_ERL_PERMISSIVE_TRUST_PROXY/'
+}
